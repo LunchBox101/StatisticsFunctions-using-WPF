@@ -89,25 +89,38 @@ namespace StatisticsFunctionsWPF
 
         private void valueFiller(ref int[] valuesArray, ref List<int> valuesList, int discardedValue, double discardedValuePercent)
         {
+            string format = "0.00";
             fillValueListBox(valuesArray);
             fillSortedListBox(valuesArray);
-            miniArrayLabel.Text = StatisticExtension.MinValue(valuesArray).ToString();
-            listMiniLabel.Text = StatisticExtension.MinValue(valuesList).ToString();
-            arrayMaxLabel.Text = StatisticExtension.MaxValue(valuesArray).ToString();
-            ListMaxLabel.Text = StatisticExtension.MaxValue(valuesList).ToString();
-            arrayMeanLabel.Text = StatisticExtension.MeanValue(valuesArray).ToString();
-            listMeanLabel.Text = StatisticExtension.MeanValue(valuesList).ToString();
+            miniArrayLabel.Text = StatisticExtension.MinValue(valuesArray).ToString(format);
+            listMiniLabel.Text = StatisticExtension.MinValue(valuesList).ToString(format);
+            arrayMaxLabel.Text = StatisticExtension.MaxValue(valuesArray).ToString(format);
+            ListMaxLabel.Text = StatisticExtension.MaxValue(valuesList).ToString(format);
+            arrayMeanLabel.Text = StatisticExtension.MeanValue(valuesArray).ToString(format);
+            listMeanLabel.Text = StatisticExtension.MeanValue(valuesList).ToString(format);
             if(discardedValue == 0 && discardedValuePercent != 0)
             {
-                arrayTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesArray, discardedValuePercent).ToString();
-                listTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesList, discardedValuePercent).ToString();
+                arrayTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesArray, discardedValuePercent).ToString(format);
+                listTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesList, discardedValuePercent).ToString(format);
             }
             else
             {
-                arrayTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesArray, discardedValue).ToString();
-                listTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesList, discardedValue).ToString();
+                arrayTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesArray, discardedValue).ToString(format);
+                listTrunMeanLabel.Text = StatisticExtension.TrunMeanValue(valuesList, discardedValue).ToString(format);
             }
-            
+
+            arrayMedianLabel.Text = StatisticExtension.Median(valuesArray).ToString(format);
+            listMedianLabel.Text = StatisticExtension.Median(valuesList).ToString(format);
+
+            arrayModeLabel.Text = string.Join(" ", StatisticExtension.Mode(valuesArray).ConvertAll(i => i.ToString(format)));
+            listModeLabel.Text = string.Join(" ", StatisticExtension.Mode(valuesList).ConvertAll(i => i.ToString(format)));
+
+            arraySTDSamLabel.Text = StatisticExtension.StdDev(valuesArray, true).ToString(format);
+            listSTDSamLabel.Text = StatisticExtension.StdDev(valuesList, true).ToString(format);
+
+            arraySTDPopLabel.Text = StatisticExtension.StdDev(valuesArray).ToString(format);
+            listSTDPopLabel.Text = StatisticExtension.StdDev(valuesList).ToString(format);
+
         }
 
 
